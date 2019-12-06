@@ -75,21 +75,43 @@ class Window(arcade.Window):
             for i in self.listOfKeys:
                 if i.type == 1:
                     i.DetectCollision()
+                    i.lineWidth = 4
         elif key == arcade.key.DOWN:
             for i in self.listOfKeys:
                 if i.type == 2:
                     i.DetectCollision()
+                    i.lineWidth = 4
         elif key == arcade.key.LEFT:
             for i in self.listOfKeys:
                 if i.type == 3:
                     i.DetectCollision()
+                    i.lineWidth = 4
         elif key == arcade.key.RIGHT:
             for i in self.listOfKeys:
                 if i.type == 4:
                     i.DetectCollision()
+                    i.lineWidth = 4
 
         elif key == arcade.key.R and self.death == True:
             self.respawn = True
+
+    def on_key_release(self, key, modifiers):
+        if key == arcade.key.UP:
+            for i in self.listOfKeys:
+                if i.type == 1:
+                    i.lineWidth = 2
+        elif key == arcade.key.DOWN:
+            for i in self.listOfKeys:
+                if i.type == 2:
+                    i.lineWidth = 2
+        elif key == arcade.key.LEFT:
+            for i in self.listOfKeys:
+                if i.type == 3:
+                    i.lineWidth = 2
+        elif key == arcade.key.RIGHT:
+            for i in self.listOfKeys:
+                if i.type == 4:
+                    i.lineWidth = 2
 
 
     def DrawLives(self):
@@ -112,6 +134,7 @@ class Key:
     def __init__(self, type):
         self.radius = 21
         self.type = type
+        self.lineWidth = 2
 
         self.xPos = (windowWidth / 5) * self.type
         self.yPos = windowHeight / 7
@@ -126,7 +149,7 @@ class Key:
             self.color = arcade.color.OLD_GOLD
 
     def Draw(self):
-        arcade.draw_circle_outline(self.xPos, self.yPos, self.radius, self.color, 2)
+        arcade.draw_circle_outline(self.xPos, self.yPos, self.radius, self.color, self.lineWidth)
 
     def DetectCollision(self):
         for obj in theObjectToRuleThemAll.song.listOfNotes:
@@ -138,10 +161,20 @@ class Key:
 
 class Note:
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, type):
         self.x = x
         self.y = y
         self.r = 20
+        self.type = type
+
+        if self.type == 1:
+            self.color = arcade.color.RED
+        if self.type == 2:
+            self.color = arcade.color.BLUE
+        if self.type == 3:
+            self.color = arcade.color.GREEN
+        if self.type == 4:
+            self.color = arcade.color.OLD_GOLD
 
     def Move(self):
         self.y = self.y - 3
@@ -152,7 +185,7 @@ class Note:
                 theObjectToRuleThemAll.death = True
 
     def Draw(self):
-        arcade.draw_circle_filled(self.x, self.y, self.r, arcade.color.ROYAL_PURPLE)
+        arcade.draw_circle_filled(self.x, self.y, self.r, self.color)
 
     def Destroy(self):
         theObjectToRuleThemAll.song.listOfNotes.remove(self)
@@ -169,7 +202,7 @@ class Song:
 
     def CreateNotes(self):
         var = random.randint(1, 4)
-        self.listOfNotes.append(Note(windowWidth/5*var, windowHeight))
+        self.listOfNotes.append(Note(windowWidth/5*var, windowHeight, var))
 
 
 theObjectToRuleThemAll = Window(windowWidth, windowHeight, "Mit vindue")
