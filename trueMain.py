@@ -159,7 +159,7 @@ class Key:
                 theObjectToRuleThemAll.score += int(1000 / self.afstand)
                 obj.Destroy()
 
-class Note:
+class ShortNote:
 
     def __init__(self, x, y, type):
         self.x = x
@@ -190,6 +190,39 @@ class Note:
     def Destroy(self):
         theObjectToRuleThemAll.song.listOfNotes.remove(self)
 
+class LongNote:
+
+    def __init__(self, x, y, type, length):
+        self.x = x
+        self.y = y
+        self.r = 20
+        self.length = length
+        self.type = type
+
+        if self.type == 1:
+            self.color = arcade.color.RED
+        if self.type == 2:
+            self.color = arcade.color.BLUE
+        if self.type == 3:
+            self.color = arcade.color.GREEN
+        if self.type == 4:
+            self.color = arcade.color.OLD_GOLD
+
+    def Move(self): # NOT DONE
+        self.y = self.y - 3
+        if self.length + self.r < 0:
+            self.Destroy()
+            theObjectToRuleThemAll.playerLives -= 1
+            if theObjectToRuleThemAll.playerLives == 0:
+                theObjectToRuleThemAll.death = True
+
+    def Draw(self):
+        arcade.draw_circle_filled(self.x, self.y, self.r, self.color)
+        arcade.draw_rectangle_filled(self.x, self.y, self.r, self.length, self.color)
+
+    def Destroy(self):
+        pass
+
 class Song:
 
     def __init__(self):
@@ -202,7 +235,7 @@ class Song:
 
     def CreateNotes(self):
         var = random.randint(1, 4)
-        self.listOfNotes.append(Note(windowWidth/5*var, windowHeight, var))
+        self.listOfNotes.append(ShortNote(windowWidth/5*var, windowHeight, var))
 
 
 theObjectToRuleThemAll = Window(windowWidth, windowHeight, "Mit vindue")
