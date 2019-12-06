@@ -6,7 +6,7 @@ class Song:
 
     def __init__(self):
         self.listOfNotes = []
-        self.listOfNotes.append(note.Note())
+        self.CreateNotes()
 
     def DrawNotes(self):
         for i in self.listOfNotes:
@@ -15,4 +15,3 @@ class Song:
     def CreateNotes(self):
         var = random.randint(1, 4)
         self.listOfNotes.append(note.Note(main.windowWidth/4*var, main.windowHeight))
-
