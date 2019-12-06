@@ -1,14 +1,16 @@
 import arcade
+import song
 
 windowWidth = 900
 windowHeight = 600
 
 
 
-class MitSpilKlasse(arcade.Window):
+class Window(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title) # Call the parent class's init function
+        self.song = song.Song
 
 
     def update(self, delta_time):
@@ -18,6 +20,6 @@ class MitSpilKlasse(arcade.Window):
         pass
 
 
-theObjectToRuleThemAll = MitSpilKlasse(windowWidth, windowHeight, "Mit vindue")
+theObjectToRuleThemAll = Window(windowWidth, windowHeight, "Mit vindue")
 
 arcade.run()
