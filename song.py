@@ -1,5 +1,6 @@
-import arcade
 import note
+import random
+import main
 
 class Song:
 
@@ -11,5 +12,7 @@ class Song:
         for i in self.listOfNotes:
             i.Draw()
 
-    def CreateNotes
+    def CreateNotes(self):
+        var = random.randint(1, 4)
+        self.listOfNotes.append(note.Note(main.windowWidth/4*var, main.windowHeight))
 
