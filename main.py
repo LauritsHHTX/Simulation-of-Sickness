@@ -19,6 +19,7 @@ class Window(arcade.Window):
     def update(self, delta_time):
         for i in self.song.listOfNotes:
             i.Move()
+        self.song.CreateNotes()
 
     def on_draw(self):
         for i in self.song.listOfNotes:
