@@ -34,7 +34,7 @@ class Window(arcade.Window):
             i.Draw()
 
 
-    def OnKeyPress(self, key, modifiers):
+    def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
             for i in self.listOfKeys:
                 if i.type == 1:
