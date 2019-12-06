@@ -20,23 +20,55 @@ class Window(arcade.Window):
         self.notDead = True
         for i in range(1, 5):
             self.listOfKeys.append(Key(i))
+        
+        self.death = False
+        self.respawn = False
 
     def update(self, delta_time):
-        for i in self.song.listOfNotes:
-            i.Move()
-        if self.temp == 60:
-            self.song.CreateNotes()
+        if self.death == True and self.respawn == True:
+            self.Restart()
+            self.song = Song()
             self.temp = 0
-        else:
-            self.temp += 1
+            self.score = 0
+            self.playerLives = 3
+            self.finalScore = 0
+            self.notDead = True
+
+        if self.death == False:
+            for i in self.song.listOfNotes:
+                i.Move()
+            if self.temp == 60:
+                self.song.CreateNotes()
+                self.temp = 0
+            else:
+                self.temp += 1
+
+        if self.death == True and self.respawn == True:
+            self.Restart()
+            self.song = Song()
+            self.temp = 0
+            self.score = 0
+            self.playerLives = 3
+            self.finalScore = 0
+            self.notDead = True
 
     def on_draw(self):
         arcade.start_render()
-        for i in self.song.listOfNotes:
-            i.Draw()
-        for i in self.listOfKeys:
-            i.Draw()
-        self.DrawLives()
+        if self.death == False:
+            for i in self.song.listOfNotes:
+                i.Draw()
+            for i in self.listOfKeys:
+                i.Draw()
+            self.DrawLives()
+
+        if self.death == True:
+            arcade.draw_text("GAME OVER", windowWidth - 600, windowHeight / 2, arcade.color.RED, 50)
+            arcade.draw_text("Final score: " + str(self.score), windowWidth / 3, windowHeight / 3, arcade.color.OLD_GOLD, 56)
+
+
+    def Restart(self):
+        self.death = False
+        self.respawn = False
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
@@ -56,13 +88,17 @@ class Window(arcade.Window):
                 if i.type == 4:
                     i.DetectCollision()
 
+        elif key == arcade.key.R and self.death == True:
+            self.respawn = True
+
+
     def DrawLives(self):
         if self.playerLives <= 0:
             self.playerLives = 0
             if self.notDead:
                 self.notDead = False
                 self.finalScore = self.score
-            self.score = self.final_score
+            self.score = self.finalScore
             for i in self.song.listOfNotes:
                 self.i.remove(i)
             arcade.draw_text("Game Over", windowWidth / 4, windowHeight / 2.1, arcade.color.OLD_GOLD, 96)
@@ -98,9 +134,6 @@ class Key:
                                       - (obj.x + obj.r)) ** 2 + ((self.yPos + self.radius) - (obj.y + obj.r)) ** 2)
             if self.afstand < obj.r + self.radius:
                 theObjectToRuleThemAll.score += int(1000 / self.afstand)
-                print(theObjectToRuleThemAll.score)
-                print(theObjectToRuleThemAll.finalScore)
-                print(theObjectToRuleThemAll.playerLives)
                 obj.Destroy()
 
 class Note:
@@ -115,7 +148,8 @@ class Note:
         if self.y + self.r < 0:
             self.Destroy()
             theObjectToRuleThemAll.playerLives -= 1
-            print(theObjectToRuleThemAll.playerLives)
+            if theObjectToRuleThemAll.playerLives == 0:
+                theObjectToRuleThemAll.death = True
 
     def Draw(self):
         arcade.draw_circle_filled(self.x, self.y, self.r, arcade.color.ROYAL_PURPLE)
