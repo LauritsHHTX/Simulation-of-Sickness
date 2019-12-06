@@ -20,7 +20,7 @@ class Window(arcade.Window):
     def update(self, delta_time):
         for i in self.song.listOfNotes:
             i.Move()
-        if self.temp == 5:
+        if self.temp == 60:
             self.song.CreateNotes()
             self.temp = 0
         else:
@@ -54,7 +54,7 @@ class Window(arcade.Window):
 
 class Key:
     def __init__(self, type):
-        self.radius = 16
+        self.radius = 21
         self.type = type
 
         self.xPos = (windowWidth / 5) * self.type
@@ -63,7 +63,7 @@ class Key:
         if self.type == 1:
             self.color = arcade.color.RED
         if self.type == 2:
-            self.color = arcade.color.PURPLE
+            self.color = arcade.color.BLUE
         if self.type == 3:
             self.color = arcade.color.GREEN
         if self.type == 4:
@@ -84,10 +84,10 @@ class Note:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.r = 15
+        self.r = 20
 
     def Move(self):
-        self.y = self.y - 5
+        self.y = self.y - 3
         if self.y + self.r < 0:
             self.Destroy()
 
