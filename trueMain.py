@@ -14,6 +14,10 @@ class Window(arcade.Window):
         self.song = Song()
         self.listOfKeys = []
         self.temp = 0
+        self.score = 0
+        self.playerLives = 3
+        self.finalScore = 0
+        self.notDead = True
         for i in range(1, 5):
             self.listOfKeys.append(Key(i))
 
@@ -25,6 +29,7 @@ class Window(arcade.Window):
             self.temp = 0
         else:
             self.temp += 1
+        self.DrawLives()
 
     def on_draw(self):
         arcade.start_render()
@@ -52,6 +57,22 @@ class Window(arcade.Window):
                 if i.type == 4:
                     i.DetectCollision()
 
+    def DrawLives(self):
+        if self.playerLives <= 0:
+            self.playerLives = 0
+            if self.notDead:
+                self.notDead = False
+                self.finalScore = self.score
+            self.score = self.final_score
+            for i in self.song.listOfNotes:
+                self.i.remove(i)
+            arcade.draw_text("Game Over", windowWidth / 4, windowHeight / 2.1, arcade.color.OLD_GOLD, 96)
+            arcade.draw_text("Final score: " +
+                             str(self.score), windowWidth / 3, windowHeight / 3, arcade.color.OLD_GOLD, 56)
+        arcade.draw_text("Health: " + str(self.playerLives), 0 + 50, windowHeight - 60, arcade.color.OLD_GOLD, 50)
+        arcade.draw_text("Score: " + str(self.score), windowWidth - 400, windowHeight - 60, arcade.color.OLD_GOLD, 50)
+
+
 class Key:
     def __init__(self, type):
         self.radius = 21
@@ -76,7 +97,7 @@ class Key:
         for obj in theObjectToRuleThemAll.song.listOfNotes:
             self.afstand = math.sqrt(((self.xPos + self.radius)
                                       - (obj.x + obj.r)) ** 2 + ((self.yPos + self.radius) - (obj.y + obj.r)) ** 2)
-            if self.afstand < obj.r:
+            if self.afstand < obj.r + self.radius:
                 obj.Destroy()
 
 class Note:
