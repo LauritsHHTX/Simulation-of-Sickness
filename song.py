@@ -10,3 +10,6 @@ class Song:
     def DrawNotes(self):
         for i in self.listOfNotes:
             i.Draw()
+
+    def CreateNotes
+

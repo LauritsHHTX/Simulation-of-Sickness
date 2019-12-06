@@ -18,6 +18,6 @@ class MitSpilKlasse(arcade.Window):
         pass
 
 
-mitVindue = MitSpilKlasse(windowWidth, windowHeight, "Mit vindue")
+theObjectToRuleThemAll = MitSpilKlasse(windowWidth, windowHeight, "Mit vindue")
 
 arcade.run()
