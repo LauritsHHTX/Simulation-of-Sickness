@@ -19,6 +19,9 @@ class Window(arcade.Window):
     def on_draw(self):
         pass
 
+    def OnKeyPress(self):
+        pass
+
 
 theObjectToRuleThemAll = Window(windowWidth, windowHeight, "Mit vindue")
 
