@@ -62,7 +62,7 @@ class Window(arcade.Window):
             if self.notDead:
                 self.notDead = False
                 self.finalScore = self.score
-            self.score = self.final_score
+            self.score = self.finalScore
             for i in self.song.listOfNotes:
                 self.i.remove(i)
             arcade.draw_text("Game Over", windowWidth / 4, windowHeight / 2.1, arcade.color.OLD_GOLD, 96)
