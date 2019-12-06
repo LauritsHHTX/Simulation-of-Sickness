@@ -1,10 +1,14 @@
 import arcade
-import note
+import math
+import main
 
 class Key:
     def __init__(self, type):
         self.radius = 5.5
         self.type = type
+        
+        self.xPos = (main.windowWidth / 4) * self.type
+        self.yPos = main.windowHeight / 7
         
         if self.type == 1:
             self.color = arcade.color.RED
@@ -17,7 +21,14 @@ class Key:
 
 
     def Draw(self):
-        pass
+        arcade.draw_circle_outline(self.xPos, self.yPos, self.radius, self.color, 0.5)
 
     def DetectCollision(self):
-        pass
+        for x in main.theObjectToRuleThemAll.song.listOfNotes:
+            self.afstand = math.sqrt(()**2 + ()**2)
+            if self.afstand < x.r:
+                x.Destroy()
+
+            else:
+                pass
+                
