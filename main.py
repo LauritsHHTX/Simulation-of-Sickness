@@ -27,8 +27,23 @@ class Window(arcade.Window):
         for i in self.listOfKeys:
             i.Draw()
 
-    def OnKeyPress(self):
-        pass
+    def OnKeyPress(self, key, modifiers):
+        if key == arcade.key.UP:
+            for i in self.listOfKeys:
+                if i.type == 1:
+                    i.DetectCollision()
+        elif key == arcade.key.DOWN:
+            for i in self.listOfKeys:
+                if i.type == 2:
+                    i.DetectCollision()
+        elif key == arcade.key.LEFT:
+            for i in self.listOfKeys:
+                if i.type == 3:
+                    i.DetectCollision()
+        elif key == arcade.key.RIGHT:
+            for i in self.listOfKeys:
+                if i.type == 4:
+                    i.DetectCollision()
 
 
 theObjectToRuleThemAll = Window(windowWidth, windowHeight, "Mit vindue")
