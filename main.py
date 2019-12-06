@@ -11,7 +11,7 @@ class Window(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title) # Call the parent class's init function
-        self.song = song.Song
+        self.song = song.Song()
         self.listOfKeys = []
         for i in range(1, 4):
             self.listOfKeys.append(key.Key(i))

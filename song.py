@@ -2,6 +2,7 @@ import note
 import random
 import main
 
+
 class Song:
 
     def __init__(self):

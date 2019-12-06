@@ -1,15 +1,15 @@
 import arcade
 import math
-import main
+
 
 class Key:
     def __init__(self, type):
         self.radius = 5.5
         self.type = type
-        
+
         self.xPos = (main.windowWidth / 4) * self.type
         self.yPos = main.windowHeight / 7
-        
+
         if self.type == 1:
             self.color = arcade.color.RED
         if self.type == 2:
@@ -25,6 +25,6 @@ class Key:
     def DetectCollision(self):
         for obj in main.theObjectToRuleThemAll.song.listOfNotes:
             self.afstand = math.sqrt(((self.xPos + self.radius)
-                                      - (obj.x + obj.r))**2 + ((self.yPos + self.radius) - (obj.y + obj.r))**2)
+                                      - (obj.x + obj.r)) ** 2 + ((self.yPos + self.radius) - (obj.y + obj.r)) ** 2)
             if self.afstand < obj.r:
                 obj.Destroy()
