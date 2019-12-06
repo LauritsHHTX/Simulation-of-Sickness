@@ -17,4 +17,4 @@ class Note:
         arcade.draw_circle_filled(self.x, self.y, self.r, arcade.color.ROYAL_PURPLE)
 
     def Destroy(self):
-        theObjectToRuleThemAll.song.listOfNotes.remove(self)
+        main.theObjectToRuleThemAll.song.listOfNotes.remove(self)
