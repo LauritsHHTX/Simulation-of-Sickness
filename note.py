@@ -1,4 +1,5 @@
 import arcade
+import main
 
 class Note:
 
@@ -9,6 +10,8 @@ class Note:
 
     def Move(self):
         self.y = self.y - 5
+        if self.y + self.r > 0:
+            self.Destroy()
 
     def Draw(self):
         arcade.draw_circle_filled(self.x, self.y, self.r, arcade.color.ROYAL_PURPLE)
