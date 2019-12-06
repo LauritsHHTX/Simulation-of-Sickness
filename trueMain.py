@@ -29,7 +29,6 @@ class Window(arcade.Window):
             self.temp = 0
         else:
             self.temp += 1
-        self.DrawLives()
 
     def on_draw(self):
         arcade.start_render()
@@ -37,7 +36,7 @@ class Window(arcade.Window):
             i.Draw()
         for i in self.listOfKeys:
             i.Draw()
-
+        self.DrawLives()
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
@@ -98,6 +97,10 @@ class Key:
             self.afstand = math.sqrt(((self.xPos + self.radius)
                                       - (obj.x + obj.r)) ** 2 + ((self.yPos + self.radius) - (obj.y + obj.r)) ** 2)
             if self.afstand < obj.r + self.radius:
+                theObjectToRuleThemAll.score += int(1000 / self.afstand)
+                print(theObjectToRuleThemAll.score)
+                print(theObjectToRuleThemAll.finalScore)
+                print(theObjectToRuleThemAll.playerLives)
                 obj.Destroy()
 
 class Note:
@@ -111,6 +114,8 @@ class Note:
         self.y = self.y - 3
         if self.y + self.r < 0:
             self.Destroy()
+            theObjectToRuleThemAll.playerLives -= 1
+            print(theObjectToRuleThemAll.playerLives)
 
     def Draw(self):
         arcade.draw_circle_filled(self.x, self.y, self.r, arcade.color.ROYAL_PURPLE)
