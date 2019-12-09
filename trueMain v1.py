@@ -10,31 +10,29 @@ windowHeight = 600
 class Window(arcade.Window):
 
     def __init__(self, width, height, title):
-        super().__init__(width, height, title) # Call the parent class's init function
+        super().__init__(width, height, title)  # Call the parent class's init function
         self.song = Song()
         self.listOfKeys = []
         self.temp = 0
         self.score = 0
         self.playerLives = 3
         self.finalScore = 0
-        self.notDead = True
-        for i in range(1, 5):
-            self.listOfKeys.append(Key(i))
-        
         self.death = False
         self.respawn = False
+        for i in range(1, 5):
+            self.listOfKeys.append(Key(i))
 
     def update(self, delta_time):
-        if self.death == True and self.respawn == True:
+        if self.death and self.respawn:
             self.Restart()
             self.song = Song()
             self.temp = 0
             self.score = 0
             self.playerLives = 3
             self.finalScore = 0
-            self.notDead = True
+            self.death = False
 
-        if self.death == False:
+        if not self.death:
             for i in self.song.listOfNotes:
                 i.Move()
             if self.temp == 60:
@@ -43,25 +41,25 @@ class Window(arcade.Window):
             else:
                 self.temp += 1
 
-        if self.death == True and self.respawn == True:
+        if self.death and self.respawn:
             self.Restart()
             self.song = Song()
             self.temp = 0
             self.score = 0
             self.playerLives = 3
             self.finalScore = 0
-            self.notDead = True
+            self.death = False
 
     def on_draw(self):
         arcade.start_render()
-        if self.death == False:
+        if not self.death:
             for i in self.song.listOfNotes:
                 i.Draw()
             for i in self.listOfKeys:
                 i.Draw()
             self.DrawLives()
 
-        if self.death == True:
+        if self.death:
             arcade.draw_text("GAME OVER", windowWidth - 600, windowHeight / 2, arcade.color.RED, 50)
             arcade.draw_text("Final score: " + str(self.score), windowWidth / 3, windowHeight / 3, arcade.color.OLD_GOLD, 56)
 
@@ -71,22 +69,22 @@ class Window(arcade.Window):
         self.respawn = False
 
     def on_key_press(self, key, modifiers):
-        if key == arcade.key.UP:
+        if key == arcade.key.A:
             for i in self.listOfKeys:
                 if i.type == 1:
                     i.DetectCollision()
                     i.lineWidth = 4
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             for i in self.listOfKeys:
                 if i.type == 2:
                     i.DetectCollision()
                     i.lineWidth = 4
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.D:
             for i in self.listOfKeys:
                 if i.type == 3:
                     i.DetectCollision()
                     i.lineWidth = 4
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.F:
             for i in self.listOfKeys:
                 if i.type == 4:
                     i.DetectCollision()
@@ -96,19 +94,19 @@ class Window(arcade.Window):
             self.respawn = True
 
     def on_key_release(self, key, modifiers):
-        if key == arcade.key.UP:
+        if key == arcade.key.A:
             for i in self.listOfKeys:
                 if i.type == 1:
                     i.lineWidth = 2
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             for i in self.listOfKeys:
                 if i.type == 2:
                     i.lineWidth = 2
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.D:
             for i in self.listOfKeys:
                 if i.type == 3:
                     i.lineWidth = 2
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.F:
             for i in self.listOfKeys:
                 if i.type == 4:
                     i.lineWidth = 2
@@ -117,8 +115,8 @@ class Window(arcade.Window):
     def DrawLives(self):
         if self.playerLives <= 0:
             self.playerLives = 0
-            if self.notDead:
-                self.notDead = False
+            if not self.death:
+                self.death = True
                 self.finalScore = self.score
             self.score = self.finalScore
             for i in self.song.listOfNotes:
