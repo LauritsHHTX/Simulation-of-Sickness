@@ -39,7 +39,7 @@ class Window(arcade.Window):
     def update(self, delta_time):
         if not self.death:
             for i in self.song.listOfNotes:
-                i.Move()
+                i.Move(delta_time)
             if self.temp == self.tempo:
                 self.song.CreateNotes()
                 self.temp = 0
@@ -72,7 +72,7 @@ class Window(arcade.Window):
 
         if self.death:
             arcade.draw_text("GAME OVER", windowWidth - 600, windowHeight / 2, arcade.color.RED, 50)
-            arcade.draw_text("Final score: " + str(self.score), windowWidth / 3, windowHeight / 3, arcade.color.OLD_GOLD, 56)
+            arcade.draw_text("Final score: " + str(self.score), windowWidth / 3, windowHeight / 3, arcade.color.YELLOW, 56)
 
     def Restart(self):
         self.death = False
@@ -133,12 +133,12 @@ class Window(arcade.Window):
             self.score = self.finalScore
             for i in self.song.listOfNotes:
                 self.i.remove(i)
-            arcade.draw_text("Game Over", windowWidth / 4, windowHeight / 2.1, arcade.color.OLD_GOLD, 96)
+            arcade.draw_text("Game Over", windowWidth / 4, windowHeight / 2.1, arcade.color.YELLOW, 96)
             arcade.draw_text("Final score: " +
-                             str(self.score), windowWidth / 3, windowHeight / 3, arcade.color.OLD_GOLD, 56)
-        arcade.draw_text("Health: " + str(self.playerLives), 0 + 50, windowHeight - 60, arcade.color.OLD_GOLD, 50)
-        arcade.draw_text("Score: " + str(self.score), windowWidth - 400, windowHeight - 60, arcade.color.OLD_GOLD, 50)
-        arcade.draw_text("missed hits: " + str(self.missedHits), windowWidth - 600, windowHeight - 120, arcade.color.OLD_GOLD, 50)
+                             str(self.score), windowWidth / 3, windowHeight / 3, arcade.color.YELLOW, 56)
+        arcade.draw_text("Health: " + str(self.playerLives), 0 + 50, windowHeight - 60, arcade.color.YELLOW, 50)
+        arcade.draw_text("Score: " + str(self.score), windowWidth - 400, windowHeight - 60, arcade.color.YELLOW, 50)
+        arcade.draw_text("missed hits: " + str(self.missedHits), windowWidth - 600, windowHeight - 120, arcade.color.YELLOW, 50)
 
 
 class Key:
@@ -157,7 +157,7 @@ class Key:
         if self.type == 3:
             self.color = arcade.color.GREEN
         if self.type == 4:
-            self.color = arcade.color.OLD_GOLD
+            self.color = arcade.color.YELLOW
 
     def Draw(self):
         arcade.draw_circle_outline(self.xPos, self.yPos, self.radius, self.color, self.lineWidth)
@@ -192,10 +192,10 @@ class ShortNote:
         if self.type == 3:
             self.color = arcade.color.GREEN
         if self.type == 4:
-            self.color = arcade.color.OLD_GOLD
+            self.color = arcade.color.YELLOW
 
-    def Move(self):
-        self.y = self.y - self.speed
+    def Move(self, delta_time):
+        self.y = self.y - self.speed * delta_time * 60
         if self.y + self.r < 0:
             self.Destroy()
             theObjectToRuleThemAll.playerLives -= 1
@@ -225,7 +225,7 @@ class LongNote:
         if self.type == 3:
             self.color = arcade.color.GREEN
         if self.type == 4:
-            self.color = arcade.color.OLD_GOLD
+            self.color = arcade.color.YELLOW
 
     def Move(self): # NOT DONE
         self.y = self.y - 3
