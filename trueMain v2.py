@@ -6,6 +6,7 @@ import sys
 
 windowWidth = 900
 windowHeight = 600
+urmom = 'gay'
 
 
 class Window(arcade.Window):
