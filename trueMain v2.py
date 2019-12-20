@@ -30,7 +30,7 @@ class Window(arcade.Window):
         self.compensation = (height - self.listOfKeys[0].yPos)/self.noteSpeed
         self.frames = 0
         self.songStarted = False
-        self.audio = arcade.sound.load_sound('Megalovania.mp3')
+        self.audio = arcade.sound.load_sound('Brooming-Skillz/Megalovania.mp3')
 
         #debugging variables
         self.missedHits = 0
