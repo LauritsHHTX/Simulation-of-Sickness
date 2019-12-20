@@ -107,13 +107,13 @@ class Window(arcade.Window):
         self.respawn = False
 
     def on_key_press(self, key, modifiers):
-        if key == arcade.key.:
+        if key == arcade.key.A:
             self.listOfKeys[0].Press()
-        if key == arcade.key.RIGHT:
+        if key == arcade.key.S:
             self.listOfKeys[1].Press()
-        if key == arcade.key.UP:
+        if key == arcade.key.D:
             self.listOfKeys[2].Press()
-        if key == arcade.key.DOWN:
+        if key == arcade.key.F:
             self.listOfKeys[3].Press()
 
         if key == arcade.key.SPACE:
@@ -126,13 +126,13 @@ class Window(arcade.Window):
             sys.exit()
 
     def on_key_release(self, key, modifiers):
-        if key == arcade.key.LEFT:
+        if key == arcade.key.A:
             self.listOfKeys[0].UnPress()
-        if key == arcade.key.RIGHT:
+        if key == arcade.key.S:
             self.listOfKeys[1].UnPress()
-        if key == arcade.key.UP:
+        if key == arcade.key.D:
             self.listOfKeys[2].UnPress()
-        if key == arcade.key.DOWN:
+        if key == arcade.key.F:
             self.listOfKeys[3].UnPress()
         if key == arcade.key.SPACE:
             self.SPACE = False
