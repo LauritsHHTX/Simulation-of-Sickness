@@ -6,7 +6,6 @@ import sys
 
 windowWidth = 900
 windowHeight = 600
-urmom = 'gay'
 
 
 class Window(arcade.Window):
@@ -15,10 +14,10 @@ class Window(arcade.Window):
         super().__init__(width, height, title)  # Call the parent class's init function
         self.song = Song()
         self.listOfKeys = []
-        self.tempo = 7.5
-        self.tempIncrement = 1.5
+        self.tempo = 15
+        self.tempIncrement = 1
         self.temp = self.tempo
-        self.framesModulo = 3
+        self.framesModulo = 1
         self.noteSpeed = 10
         self.score = 0
         self.maxLives = 1000
@@ -40,7 +39,7 @@ class Window(arcade.Window):
         if not self.death:
             for i in self.song.listOfNotes:
                 i.Move(delta_time)
-            if self.temp == self.tempo:
+            if self.temp >= self.tempo:
                 self.song.CreateNotes()
                 self.temp = 0
             else:
@@ -184,7 +183,6 @@ class ShortNote:
         self.type = type
         self.speed = speed
 
-
         if self.type == 1:
             self.color = arcade.color.RED
         if self.type == 2:
@@ -255,7 +253,7 @@ class Song:
 
     def CreateNotes(self):
         var = 4
-        #var = random.randint(1, 4)
+        var = random.randint(1, 4)
         self.listOfNotes.append(ShortNote(windowWidth/5*var, windowHeight, var, theObjectToRuleThemAll.noteSpeed))
 
 
